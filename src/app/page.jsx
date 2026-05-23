@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useEffect } from "react";
+import { mockedPosts } from "./components/mockedPosts/mockedPost";
 import CreatePost from "./components/createPost/CreatePost";
 import FilterPost from "./components/filterPost/FilterPost";
 import PostStats from "./components/postStats/PostStats";
@@ -8,29 +10,7 @@ import SearchPost from "./components/searchPost/SearchPost";
 import PostList from "./components/postList/PostList";
 
 function App() {
-  const [posts, setPosts] = useState([
-    { id: 1, title: "First Post", content: "Hello World", completed: true },
-    { id: 2, title: "Second Post", content: "JS Warm Up", completed: false },
-    {
-      id: 3,
-      title: "Third Post",
-      content: "Array & Objects",
-      completed: false,
-    },
-    { id: 4, title: "Fourth Post", content: "Add Incomplete", completed: true },
-    {
-      id: 5,
-      title: "Fifth Post",
-      content: "Filter Incomplete",
-      completed: false,
-    },
-    {
-      id: 6,
-      title: "Sixth Post",
-      content: "All Is Well",
-      completed: false,
-    },
-  ]);
+  const [posts, setPosts] = useState(mockedPosts);
 
   const [inputSearchTitle, setInputSearchTitle] = useState("");
   const [filter, setFilter] = useState("All");
@@ -81,6 +61,18 @@ function App() {
   function clearCompleted() {
     setPosts((prevPosts) => prevPosts.filter((post) => !post.completed));
   }
+
+  useEffect(() => {
+    const savedPosts = localStorage.getItem("posts");
+    if (savedPosts) {
+      setPosts(JSON.parse(savedPosts));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("posts", JSON.stringify(posts));
+    console.log("posts saved");
+  }, [posts]);
 
   return (
     <div className="min-h-screen bg-slate-50">
