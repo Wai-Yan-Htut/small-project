@@ -5,6 +5,7 @@ export default function PostList({
   filteredPosts,
   markComplete,
   deletePost,
+  editPost,
 }) {
   const hasNoPosts = posts.length === 0;
   const hasNoMatch = filteredPosts.length === 0;
@@ -12,18 +13,16 @@ export default function PostList({
   return (
     <main className="space-y-4">
       {hasNoPosts ? (
-        <div>
-          <h2 className="text-lg font-semibold text-gray-900 text-center">
-            No posts yet
-          </h2>
-          <p className="text-gray-600 text-sm mb-4 text-center">
-            Create your first post
-          </p>
+        <div className="rounded-2xl border border-dashed border-slate-300 bg-white/70 p-10 text-center shadow-sm">
+          <h2 className="text-lg font-semibold text-slate-900">No posts yet</h2>
+          <p className="mt-2 text-sm text-slate-600">Create your first post</p>
         </div>
       ) : hasNoMatch ? (
-        <h2 className="text-lg font-semibold text-gray-900 text-center">
-          No Matching Post Found
-        </h2>
+        <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center shadow-sm">
+          <h2 className="text-lg font-semibold text-slate-900">
+            No Matching Post Found
+          </h2>
+        </div>
       ) : (
         filteredPosts.map((post) => (
           <PostCard
@@ -31,6 +30,7 @@ export default function PostList({
             post={post}
             markComplete={markComplete}
             deletePost={deletePost}
+            editPost={editPost}
           />
         ))
       )}

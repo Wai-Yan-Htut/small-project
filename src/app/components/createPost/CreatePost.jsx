@@ -13,16 +13,22 @@ export default function CreatePost({ addPost }) {
     inputPostTitle.length <= 30 && inputPostContent.length <= 100;
 
   return (
-    <div className="w-full bg-white rounded-lg shadow-md p-6 border border-gray-200">
-      <h2 className="text-2xl font-bold text-gray-900 mb-4">Create New Post</h2>
+    <div className="w-full rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div className="mb-4 flex items-start justify-between gap-4">
+        <div>
+          <h2 className="mt-1 text-2xl font-bold text-slate-900">
+            Create New Post
+          </h2>
+        </div>
+      </div>
       <div className="space-y-4">
         <div>
           <div className="mb-2 flex items-center justify-between gap-4">
-            <label className="block text-sm font-medium text-gray-700 text-right">
+            <label className="block text-sm font-medium text-slate-700 text-right">
               Post Title
             </label>
             {inputPostTitle.length <= 30 ? (
-              <span className="text-sm text-gray-700">
+              <span className="text-sm text-slate-600">
                 Title count: {inputPostTitle.length}/30
               </span>
             ) : (
@@ -36,16 +42,16 @@ export default function CreatePost({ addPost }) {
             placeholder="Enter post title..."
             value={inputPostTitle}
             onChange={(event) => setInputPostTitle(event.target.value)}
-            className="w-full px-4 py-2 border text-gray-700 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+            className="w-full rounded-xl border border-slate-200 px-4 py-2 text-slate-700 transition focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/20"
           />
         </div>
         <div>
           <div className="mb-2 flex items-center justify-between gap-4">
-            <label className="block text-sm font-medium text-gray-700 text-right">
+            <label className="block text-sm font-medium text-slate-700 text-right">
               Post Content
             </label>
             {inputPostContent.length <= 100 ? (
-              <span className="text-sm text-gray-700">
+              <span className="text-sm text-slate-600">
                 Content count: {inputPostContent.length}/100
               </span>
             ) : (
@@ -59,7 +65,7 @@ export default function CreatePost({ addPost }) {
             placeholder="Enter post content..."
             value={inputPostContent}
             onChange={(event) => setInputPostContent(event.target.value)}
-            className="w-full px-4 py-2 border text-gray-700 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+            className="w-full rounded-xl border border-slate-200 px-4 py-2 text-slate-700 transition focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/20"
           />
         </div>
         {validField && validMaxChar ? (
@@ -69,14 +75,14 @@ export default function CreatePost({ addPost }) {
               setInputPostTitle("");
               setInputPostContent("");
             }}
-            className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200"
+            className="w-full rounded-xl bg-emerald-500 px-4 py-2 font-semibold text-white transition-colors duration-200 hover:bg-emerald-600"
           >
             Add Post
           </button>
         ) : (
           <button
             disabled={true}
-            className="w-full bg-green-300 hover:bg-green-200 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200"
+            className="w-full rounded-xl bg-emerald-200 px-4 py-2 font-semibold text-emerald-500 transition-colors duration-200"
           >
             Add Post
           </button>

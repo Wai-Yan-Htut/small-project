@@ -16,21 +16,16 @@ function App() {
   const [filter, setFilter] = useState("All");
 
   const filteredPosts = posts
-    .filter((post) => {
-      // return filter === "All"
-      //   ? post
-      //   : filter === "Completed"
-      //     ? post.completed
-      //     : !post.completed;
-      if (filter === "All") return true;
-      if (filter === "Completed") return post.completed;
-      return !post.completed;
-    })
+    .filter(matchFilter)
     .filter((post) =>
-      post.title
-        .toLocaleLowerCase()
-        .includes(inputSearchTitle.toLocaleLowerCase()),
+      post.title.toLowerCase().includes(inputSearchTitle.toLowerCase()),
     );
+
+  function matchFilter(post) {
+    if (filter === "All") return true;
+    if (filter === "Completed") return post.completed;
+    return !post.completed;
+  }
 
   function markComplete(idToMark) {
     setPosts((prevPosts) =>
@@ -51,7 +46,19 @@ function App() {
       content: inputPostContent,
       completed: false,
     };
-    setPosts([...posts, newPost]);
+    setPosts((prevPosts) => [...prevPosts, newPost]);
+  }
+
+  function editPost(idToEdit, inputEditTitle, inputEditContent) {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) => {
+        if (post.id === idToEdit) {
+          return { ...post, title: inputEditTitle, content: inputEditContent };
+        } else {
+          return post;
+        }
+      }),
+    );
   }
 
   function deletePost(postId) {
@@ -75,17 +82,20 @@ function App() {
   }, [posts]);
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <div className="mx-auto max-w-6xl px-4 py-8">
-        <h1 className="text-center text-4xl font-bold text-gray-900 mb-8">
-          Home Feed
-        </h1>
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px]">
+    <div className="min-h-screen bg-linear-to-b from-slate-50 via-slate-50 to-slate-100 text-slate-900">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="mb-8 flex flex-col items-center gap-3 text-center">
+          <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
+            Home Feed
+          </h1>
+        </div>
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_380px]">
           <PostList
             posts={posts}
             filteredPosts={filteredPosts}
             markComplete={markComplete}
             deletePost={deletePost}
+            editPost={editPost}
           />
           <aside className="space-y-6 self-start lg:sticky lg:top-8">
             <SearchPost
@@ -94,7 +104,7 @@ function App() {
             />
             <button
               onClick={() => clearCompleted()}
-              className="flex-1 w-full px-3 h-10 bg-red-500 hover:bg-red-600 text-white text-sm font-medium rounded-md transition-colors"
+              className="flex h-11 w-full items-center justify-center rounded-xl bg-rose-500 px-4 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-rose-600 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2"
             >
               Clear Completed
             </button>
