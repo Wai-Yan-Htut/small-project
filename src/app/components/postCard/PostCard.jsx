@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-export default function PostCard({ post, markComplete, deletePost, editPost }) {
+export default function PostCard({
+  post,
+  toggleComplete,
+  deletePost,
+  editPost,
+}) {
   const [isEditing, setIsEditing] = useState(false);
   const [inputEditTitle, setInputEditTitle] = useState(post.title);
   const [inputEditContent, setInputEditContent] = useState(post.content);
@@ -99,14 +104,14 @@ export default function PostCard({ post, markComplete, deletePost, editPost }) {
             </button>
             {post.completed ? (
               <button
-                disabled={true}
-                className="flex-1 cursor-not-allowed rounded-xl bg-slate-200 px-3 py-2 text-sm font-semibold text-slate-500 transition-colors"
+                onClick={() => toggleComplete(post.id)}
+                className="flex-1 rounded-xl bg-orange-500 hover:bg-orange-600 px-3 py-2 text-sm font-semibold text-white transition-colors"
               >
-                Completed
+                Mark Incomplete
               </button>
             ) : (
               <button
-                onClick={() => markComplete(post.id)}
+                onClick={() => toggleComplete(post.id)}
                 className="flex-1 rounded-xl bg-sky-500 px-3 py-2 text-sm font-semibold text-white transition-colors hover:bg-sky-600"
               >
                 Mark Complete

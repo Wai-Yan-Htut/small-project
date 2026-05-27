@@ -27,11 +27,23 @@ function App() {
     return !post.completed;
   }
 
-  function markComplete(idToMark) {
+  // function markComplete(idToMark) {
+  //   setPosts((prevPosts) =>
+  //     prevPosts.map((post) => {
+  //       if (post.id === idToMark) {
+  //         return { ...post, completed: true };
+  //       } else {
+  //         return post;
+  //       }
+  //     }),
+  //   );
+  // }
+
+  function toggleComplete(idToToggle) {
     setPosts((prevPosts) =>
       prevPosts.map((post) => {
-        if (post.id === idToMark) {
-          return { ...post, completed: true };
+        if (post.id === idToToggle) {
+          return { ...post, completed: !post.completed };
         } else {
           return post;
         }
@@ -93,7 +105,7 @@ function App() {
           <PostList
             posts={posts}
             filteredPosts={filteredPosts}
-            markComplete={markComplete}
+            toggleComplete={toggleComplete}
             deletePost={deletePost}
             editPost={editPost}
           />

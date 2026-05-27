@@ -3,7 +3,7 @@ import PostCard from "../postCard/PostCard";
 export default function PostList({
   posts,
   filteredPosts,
-  markComplete,
+  toggleComplete,
   deletePost,
   editPost,
 }) {
@@ -28,7 +28,7 @@ export default function PostList({
           <PostCard
             key={post.id}
             post={post}
-            markComplete={markComplete}
+            toggleComplete={toggleComplete}
             deletePost={deletePost}
             editPost={editPost}
           />
