@@ -4,40 +4,27 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { mockedPosts } from "./components/mockedPosts/mockedPost";
 import CreatePost from "./components/createPost/CreatePost";
-import FilterPost from "./components/filterPost/FilterPost";
+// import FilterPost from "./components/filterPost/FilterPost";
 import NavBar from "./components/navBar/NavBar";
-import PostStats from "./components/postStats/PostStats";
 import PostList from "./components/postList/PostList";
 
 function App() {
   const [posts, setPosts] = useState(mockedPosts);
 
   const [inputSearchTitle, setInputSearchTitle] = useState("");
-  const [filter, setFilter] = useState("All");
+  // const [filter, setFilter] = useState("All");
 
   const filteredPosts = posts
-    .filter(matchFilter)
+    // .filter(matchFilter)
     .filter((post) =>
       post.title.toLowerCase().includes(inputSearchTitle.toLowerCase()),
     );
 
-  function matchFilter(post) {
-    if (filter === "All") return true;
-    if (filter === "Completed") return post.completed;
-    return !post.completed;
-  }
-
-  function toggleComplete(idToToggle) {
-    setPosts((prevPosts) =>
-      prevPosts.map((post) => {
-        if (post.id === idToToggle) {
-          return { ...post, completed: !post.completed };
-        } else {
-          return post;
-        }
-      }),
-    );
-  }
+  // function matchFilter(post) {
+  //   if (filter === "All") return true;
+  //   if (filter === "Completed") return post.completed;
+  //   return !post.completed;
+  // }
 
   function addPost(inputPostTitle, inputPostContent) {
     const newPost = {
@@ -65,10 +52,6 @@ function App() {
     setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
   }
 
-  function clearCompleted() {
-    setPosts((prevPosts) => prevPosts.filter((post) => !post.completed));
-  }
-
   useEffect(() => {
     const savedPosts = localStorage.getItem("posts");
     if (savedPosts) {
@@ -92,20 +75,12 @@ function App() {
           <PostList
             posts={posts}
             filteredPosts={filteredPosts}
-            toggleComplete={toggleComplete}
             deletePost={deletePost}
             editPost={editPost}
           />
           <aside className="space-y-6 self-start lg:sticky lg:top-8">
-            <button
-              onClick={() => clearCompleted()}
-              className="flex h-11 w-full items-center justify-center rounded-xl bg-rose-500 px-4 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-rose-600 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2"
-            >
-              Clear Completed
-            </button>
-            <FilterPost filteredPosts={filteredPosts} setFilter={setFilter} />
+            {/* <FilterPost filteredPosts={filteredPosts} setFilter={setFilter} /> */}
             <CreatePost addPost={addPost} />
-            <PostStats posts={posts} />
           </aside>
         </div>
       </div>

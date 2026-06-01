@@ -13,9 +13,6 @@ export default function PostCard({ post, deletePost, editPost }) {
   const [inputEditTitle, setInputEditTitle] = useState(post.title);
   const [inputEditContent, setInputEditContent] = useState(post.content);
 
-  const score = post.score ?? 0;
-  const comments = post.comments ?? 0;
-
   return (
     <article className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:border-slate-300 hover:shadow-md">
       {isEditing ? (
@@ -130,7 +127,7 @@ export default function PostCard({ post, deletePost, editPost }) {
                 </button>
 
                 <span className="flex min-w-8 items-center justify-center px-2 text-sm font-semibold text-slate-900">
-                  {score}
+                  {post.vote}
                 </span>
 
                 <button
@@ -148,7 +145,7 @@ export default function PostCard({ post, deletePost, editPost }) {
               >
                 <MessageCircle className="h-4 w-4" />
                 Comment
-                <span className="text-xs text-slate-500">{comments}</span>
+                {/* <span className="text-xs text-slate-500">{comments}</span> */}
               </button>
 
               <button
