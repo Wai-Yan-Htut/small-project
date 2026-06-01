@@ -5,8 +5,8 @@ import { useEffect } from "react";
 import { mockedPosts } from "./components/mockedPosts/mockedPost";
 import CreatePost from "./components/createPost/CreatePost";
 import FilterPost from "./components/filterPost/FilterPost";
+import NavBar from "./components/navBar/NavBar";
 import PostStats from "./components/postStats/PostStats";
-import SearchPost from "./components/searchPost/SearchPost";
 import PostList from "./components/postList/PostList";
 
 function App() {
@@ -26,18 +26,6 @@ function App() {
     if (filter === "Completed") return post.completed;
     return !post.completed;
   }
-
-  // function markComplete(idToMark) {
-  //   setPosts((prevPosts) =>
-  //     prevPosts.map((post) => {
-  //       if (post.id === idToMark) {
-  //         return { ...post, completed: true };
-  //       } else {
-  //         return post;
-  //       }
-  //     }),
-  //   );
-  // }
 
   function toggleComplete(idToToggle) {
     setPosts((prevPosts) =>
@@ -95,12 +83,11 @@ function App() {
 
   return (
     <div className="min-h-screen bg-linear-to-b from-slate-50 via-slate-50 to-slate-100 text-slate-900">
+      <NavBar
+        inputSearchTitle={inputSearchTitle}
+        setInputSearchTitle={setInputSearchTitle}
+      />
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mb-8 flex flex-col items-center gap-3 text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
-            Home Feed
-          </h1>
-        </div>
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_380px]">
           <PostList
             posts={posts}
@@ -110,10 +97,6 @@ function App() {
             editPost={editPost}
           />
           <aside className="space-y-6 self-start lg:sticky lg:top-8">
-            <SearchPost
-              inputSearchTitle={inputSearchTitle}
-              setInputSearchTitle={setInputSearchTitle}
-            />
             <button
               onClick={() => clearCompleted()}
               className="flex h-11 w-full items-center justify-center rounded-xl bg-rose-500 px-4 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-rose-600 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2"
