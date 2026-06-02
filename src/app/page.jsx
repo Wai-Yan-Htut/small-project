@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { mockedPosts } from "./components/mockedPosts/mockedPost";
 import CreatePost from "./components/createPost/CreatePost";
-// import FilterPost from "./components/filterPost/FilterPost";
 import NavBar from "./components/navBar/NavBar";
 import PostList from "./components/postList/PostList";
 
@@ -12,26 +11,19 @@ function App() {
   const [posts, setPosts] = useState(mockedPosts);
 
   const [inputSearchTitle, setInputSearchTitle] = useState("");
-  // const [filter, setFilter] = useState("All");
 
-  const filteredPosts = posts
-    // .filter(matchFilter)
-    .filter((post) =>
-      post.title.toLowerCase().includes(inputSearchTitle.toLowerCase()),
-    );
-
-  // function matchFilter(post) {
-  //   if (filter === "All") return true;
-  //   if (filter === "Completed") return post.completed;
-  //   return !post.completed;
-  // }
+  const filteredPosts = posts.filter((post) =>
+    post.title.toLowerCase().includes(inputSearchTitle.toLowerCase()),
+  );
 
   function addPost(inputPostTitle, inputPostContent) {
     const newPost = {
       id: Date.now(),
       title: inputPostTitle,
       content: inputPostContent,
-      completed: false,
+      vote: 0,
+      voteAction: null,
+      comments: [],
     };
     setPosts((prevPosts) => [...prevPosts, newPost]);
   }
@@ -41,6 +33,51 @@ function App() {
       prevPosts.map((post) => {
         if (post.id === idToEdit) {
           return { ...post, title: inputEditTitle, content: inputEditContent };
+        } else {
+          return post;
+        }
+      }),
+    );
+  }
+
+  function toggleUpvote(idToUpvote) {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) => {
+        if (post.id === idToUpvote) {
+          // if (post.voteAction === "up") {
+          //   return { ...post, vote: post.vote - 1, voteAction: null };
+          // }
+          // if (post.voteAction === "down") {
+          //   return { ...post, vote: post.vote + 2, voteAction: "up" };
+          // }
+          // return { ...post, vote: post.vote + 1, voteAction: "up" };
+          switch (post.voteAction) {
+            case "up":
+              return { ...post, vote: post.vote - 1, voteAction: null };
+            case "down":
+              return { ...post, vote: post.vote + 2, voteAction: "up" };
+            case null:
+              return { ...post, vote: post.vote + 1, voteAction: "up" };
+          }
+        } else {
+          return post;
+        }
+      }),
+    );
+  }
+
+  function toggleDownvote(idToUpvote) {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) => {
+        if (post.id === idToUpvote) {
+          switch (post.voteAction) {
+            case "down":
+              return { ...post, vote: post.vote + 1, voteAction: null };
+            case "up":
+              return { ...post, vote: post.vote - 2, voteAction: "down" };
+            case null:
+              return { ...post, vote: post.vote - 1, voteAction: "down" };
+          }
         } else {
           return post;
         }
@@ -75,11 +112,12 @@ function App() {
           <PostList
             posts={posts}
             filteredPosts={filteredPosts}
+            toggleUpvote={toggleUpvote}
+            toggleDownvote={toggleDownvote}
             deletePost={deletePost}
             editPost={editPost}
           />
-          <aside className="space-y-6 self-start lg:sticky lg:top-8">
-            {/* <FilterPost filteredPosts={filteredPosts} setFilter={setFilter} /> */}
+          <aside className="sticky space-y-6 self-start lg:sticky lg:top-8">
             <CreatePost addPost={addPost} />
           </aside>
         </div>

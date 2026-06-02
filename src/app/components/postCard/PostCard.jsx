@@ -8,7 +8,13 @@ import {
   Trash2,
 } from "lucide-react";
 
-export default function PostCard({ post, deletePost, editPost }) {
+export default function PostCard({
+  post,
+  deletePost,
+  toggleUpvote,
+  toggleDownvote,
+  editPost,
+}) {
   const [isEditing, setIsEditing] = useState(false);
   const [inputEditTitle, setInputEditTitle] = useState(post.title);
   const [inputEditContent, setInputEditContent] = useState(post.content);
@@ -67,12 +73,6 @@ export default function PostCard({ post, deletePost, editPost }) {
               >
                 Cancel
               </button>
-              <button
-                onClick={() => deletePost(post.id)}
-                className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:border-rose-200 hover:bg-rose-50 hover:text-rose-700"
-              >
-                Delete
-              </button>
             </div>
           </div>
         </div>
@@ -90,15 +90,6 @@ export default function PostCard({ post, deletePost, editPost }) {
               </div>
 
               <div className="flex items-center gap-2">
-                <span
-                  className={`inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] ${
-                    post.completed
-                      ? "bg-emerald-100 text-emerald-700"
-                      : "bg-slate-100 text-slate-600"
-                  }`}
-                >
-                  {post.completed ? "Completed" : "Open"}
-                </span>
                 <button
                   type="button"
                   onClick={() => setIsEditing(true)}
@@ -118,25 +109,48 @@ export default function PostCard({ post, deletePost, editPost }) {
 
             <div className="flex flex-wrap items-center gap-1.5 pt-2">
               <div className="inline-flex items-center rounded-full bg-slate-50 px-2.5 py-1.5 shadow-sm ring-1 ring-slate-200 transition-colors hover:bg-white hover:ring-cyan-200">
-                <button
-                  type="button"
-                  className="inline-flex h-6 w-6 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-cyan-50 hover:text-cyan-700"
-                  aria-label="Upvote"
-                >
-                  <ArrowBigUp className="h-3.5 w-3.5" />
-                </button>
+                {post.voteAction === "up" ? (
+                  <button
+                    type="button"
+                    aria-label="Upvote"
+                    onClick={() => toggleUpvote(post.id)}
+                    className="inline-flex h-6 w-6 items-center justify-center rounded-full text-slate-500 transition-colors bg-cyan-500 hover:text-cyan-700"
+                  >
+                    <ArrowBigUp className="h-3.5 w-3.5" />
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    aria-label="Upvote"
+                    onClick={() => toggleUpvote(post.id)}
+                    className="inline-flex h-6 w-6 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-cyan-50 hover:text-cyan-700"
+                  >
+                    <ArrowBigUp className="h-3.5 w-3.5" />
+                  </button>
+                )}
 
                 <span className="flex min-w-8 items-center justify-center px-2 text-sm font-semibold text-slate-900">
                   {post.vote}
                 </span>
-
-                <button
-                  type="button"
-                  className="inline-flex h-6 w-6 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-cyan-50 hover:text-cyan-700"
-                  aria-label="Downvote"
-                >
-                  <ArrowBigDown className="h-3.5 w-3.5" />
-                </button>
+                {post.voteAction === "down" ? (
+                  <button
+                    type="button"
+                    aria-label="Downvote"
+                    onClick={() => toggleDownvote(post.id)}
+                    className="inline-flex h-6 w-6 items-center justify-center rounded-full text-slate-400 transition-colors bg-purple-800 hover:text-cyan-700"
+                  >
+                    <ArrowBigDown className="h-3.5 w-3.5" />
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    aria-label="Downvote"
+                    onClick={() => toggleDownvote(post.id)}
+                    className="inline-flex h-6 w-6 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-cyan-50 hover:text-cyan-700"
+                  >
+                    <ArrowBigDown className="h-3.5 w-3.5" />
+                  </button>
+                )}
               </div>
 
               <button

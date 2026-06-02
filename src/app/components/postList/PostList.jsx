@@ -3,6 +3,8 @@ import PostCard from "../postCard/PostCard";
 export default function PostList({
   posts,
   filteredPosts,
+  toggleUpvote,
+  toggleDownvote,
   deletePost,
   editPost,
 }) {
@@ -28,6 +30,8 @@ export default function PostList({
             key={post.id}
             post={post}
             deletePost={deletePost}
+            toggleUpvote={toggleUpvote}
+            toggleDownvote={toggleDownvote}
             editPost={editPost}
           />
         ))

@@ -1,6 +1,6 @@
 "use client";
 
-import { Search } from "lucide-react";
+import { Search, CirclePlus } from "lucide-react";
 import SearchPost from "../searchPost/SearchPost";
 
 export default function NavBar({ inputSearchTitle, setInputSearchTitle }) {
@@ -42,10 +42,10 @@ export default function NavBar({ inputSearchTitle, setInputSearchTitle }) {
           </button>
           <button
             type="button"
-            className="inline-flex items-center gap-2 rounded-full bg-cyan-500 px-4 py-2 text-sm font-semibold text-white shadow-sm shadow-cyan-200 transition-colors hover:bg-cyan-600"
+            className="inline-flex items-center justify-center gap-1.5 rounded-full bg-cyan-500 px-4 py-2 text-sm font-semibold leading-none text-white shadow-sm shadow-cyan-200 transition-colors hover:bg-cyan-600"
           >
-            <span className="hidden h-2 w-2 rounded-full bg-white sm:inline-block" />
-            Create
+            <CirclePlus className="h-4 w-4 shrink-0 text-white" />
+            <span className="leading-none">Create</span>
           </button>
           <button
             type="button"
