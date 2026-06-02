@@ -19,6 +19,8 @@ export default function PostCard({
   const [inputEditTitle, setInputEditTitle] = useState(post.title);
   const [inputEditContent, setInputEditContent] = useState(post.content);
 
+  const postTimestamp = Math.floor((Date.now() - post.createdAt) / 1000);
+
   return (
     <article className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:border-slate-300 hover:shadow-md">
       {isEditing ? (
@@ -81,9 +83,14 @@ export default function PostCard({
           <div className="min-w-0 flex-1 p-5">
             <div className="mb-3 flex items-start justify-between gap-4">
               <div className="min-w-0">
-                <p className="mb-1 text-xs text-slate-500">
-                  r/shrimpapp • 3h ago
-                </p>
+                <span className="flex mb-1 text-xs text-slate-500">
+                  r/shrimpapp •
+                  {postTimestamp < 60
+                    ? `${postTimestamp} sec ago`
+                    : postTimestamp < 3600
+                      ? `${Math.floor(postTimestamp / 60)} min ago`
+                      : `${Math.floor(postTimestamp / 3600)} hr ago`}
+                </span>
                 <h2 className="truncate text-lg font-semibold tracking-tight text-slate-900">
                   {post.title}
                 </h2>

@@ -24,6 +24,7 @@ function App() {
       vote: 0,
       voteAction: null,
       comments: [],
+      createdAt: Date.now(),
     };
     setPosts((prevPosts) => [...prevPosts, newPost]);
   }
@@ -44,13 +45,6 @@ function App() {
     setPosts((prevPosts) =>
       prevPosts.map((post) => {
         if (post.id === idToUpvote) {
-          // if (post.voteAction === "up") {
-          //   return { ...post, vote: post.vote - 1, voteAction: null };
-          // }
-          // if (post.voteAction === "down") {
-          //   return { ...post, vote: post.vote + 2, voteAction: "up" };
-          // }
-          // return { ...post, vote: post.vote + 1, voteAction: "up" };
           switch (post.voteAction) {
             case "up":
               return { ...post, vote: post.vote - 1, voteAction: null };
@@ -66,10 +60,10 @@ function App() {
     );
   }
 
-  function toggleDownvote(idToUpvote) {
+  function toggleDownvote(idToDownvote) {
     setPosts((prevPosts) =>
       prevPosts.map((post) => {
-        if (post.id === idToUpvote) {
+        if (post.id === idToDownvote) {
           switch (post.voteAction) {
             case "down":
               return { ...post, vote: post.vote + 1, voteAction: null };

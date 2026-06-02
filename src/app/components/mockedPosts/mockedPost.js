@@ -6,6 +6,7 @@ export const mockedPosts = [
     vote: 8,
     voteAction: null,
     comments: [],
+    createdAt: 1780413500218,
   },
   {
     id: 2,
@@ -14,6 +15,7 @@ export const mockedPosts = [
     vote: 0,
     voteAction: null,
     comments: [],
+    createdAt: 1780413500218,
   },
   {
     id: 3,
@@ -22,6 +24,7 @@ export const mockedPosts = [
     vote: 2,
     voteAction: null,
     comments: [],
+    createdAt: 1780413500218,
   },
   {
     id: 4,
@@ -30,6 +33,7 @@ export const mockedPosts = [
     vote: 5,
     voteAction: null,
     comments: [],
+    createdAt: 1780413500218,
   },
   {
     id: 5,
@@ -38,6 +42,7 @@ export const mockedPosts = [
     vote: 11,
     voteAction: null,
     comments: [],
+    createdAt: 1780413500218,
   },
   {
     id: 6,
@@ -46,5 +51,6 @@ export const mockedPosts = [
     vote: 33,
     voteAction: null,
     comments: [],
+    createdAt: 1780413500218,
   },
 ];
