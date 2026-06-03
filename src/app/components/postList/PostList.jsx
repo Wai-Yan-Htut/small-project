@@ -3,10 +3,11 @@ import PostCard from "../postCard/PostCard";
 export default function PostList({
   posts,
   filteredPosts,
-  toggleUpvote,
-  toggleDownvote,
   deletePost,
   editPost,
+  toggleUpvote,
+  toggleDownvote,
+  createComment,
 }) {
   const hasNoPosts = posts.length === 0;
   const hasNoMatch = filteredPosts.length === 0;
@@ -29,10 +30,11 @@ export default function PostList({
           <PostCard
             key={post.id}
             post={post}
-            deletePost={deletePost}
             toggleUpvote={toggleUpvote}
             toggleDownvote={toggleDownvote}
+            createComment={createComment}
             editPost={editPost}
+            deletePost={deletePost}
           />
         ))
       )}

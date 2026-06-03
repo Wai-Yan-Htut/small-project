@@ -5,7 +5,7 @@ export const mockedPosts = [
     content: "Hello World",
     vote: 8,
     voteAction: null,
-    comments: [],
+    comments: [{ id: 1780413500211, username: "user", content: "Nice" }],
     createdAt: 1780413500218,
   },
   {
@@ -14,7 +14,7 @@ export const mockedPosts = [
     content: "JS Warm Up",
     vote: 0,
     voteAction: null,
-    comments: [],
+    comments: [{ id: 1780413500212, username: "user", content: "Cool" }],
     createdAt: 1780413500218,
   },
   {
@@ -23,7 +23,7 @@ export const mockedPosts = [
     content: "Array & Objects",
     vote: 2,
     voteAction: null,
-    comments: [],
+    comments: [{ id: 1780413500213, username: "user", content: "Okay" }],
     createdAt: 1780413500218,
   },
   {
@@ -32,7 +32,9 @@ export const mockedPosts = [
     content: "Add Incomplete",
     vote: 5,
     voteAction: null,
-    comments: [],
+    comments: [
+      { id: 1780413500214, username: "user", content: "It's working" },
+    ],
     createdAt: 1780413500218,
   },
   {
@@ -41,7 +43,7 @@ export const mockedPosts = [
     content: "Filter Incomplete",
     vote: 11,
     voteAction: null,
-    comments: [],
+    comments: [{ id: 1780413500215, username: "user", content: "Nope" }],
     createdAt: 1780413500218,
   },
   {
@@ -50,7 +52,7 @@ export const mockedPosts = [
     content: "All Is Well",
     vote: 33,
     voteAction: null,
-    comments: [],
+    comments: [{ id: 1780413500216, username: "user", content: "Let's Gooo" }],
     createdAt: 1780413500218,
   },
 ];

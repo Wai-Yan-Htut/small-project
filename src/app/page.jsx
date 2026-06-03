@@ -79,6 +79,22 @@ function App() {
     );
   }
 
+  function createComment(inputComment, idToComment) {
+    const newComment = {
+      id: Date.now(),
+      username: "user",
+      content: inputComment,
+    };
+    setPosts((prevPosts) =>
+      prevPosts.map((post) => {
+        if (post.id === idToComment) {
+          return { ...post, comments: [...post.comments, newComment] };
+        }
+        return post;
+      }),
+    );
+  }
+
   function deletePost(postId) {
     setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
   }
@@ -108,6 +124,7 @@ function App() {
             filteredPosts={filteredPosts}
             toggleUpvote={toggleUpvote}
             toggleDownvote={toggleDownvote}
+            createComment={createComment}
             deletePost={deletePost}
             editPost={editPost}
           />
