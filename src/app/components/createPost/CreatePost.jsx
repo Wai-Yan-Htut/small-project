@@ -10,7 +10,7 @@ export default function CreatePost({ addPost }) {
     inputPostTitle.trim() !== "" && inputPostContent.trim() !== "";
 
   const validMaxChar =
-    inputPostTitle.length <= 30 && inputPostContent.length <= 100;
+    inputPostTitle.length <= 50 && inputPostContent.length <= 200;
 
   return (
     <div className="w-full rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -27,13 +27,13 @@ export default function CreatePost({ addPost }) {
             <label className="block text-sm font-medium text-slate-700 text-right">
               Post Title
             </label>
-            {inputPostTitle.length <= 30 ? (
+            {inputPostTitle.length <= 50 ? (
               <span className="text-sm text-slate-600">
-                Title count: {inputPostTitle.length}/30
+                Title count: {inputPostTitle.length}/50
               </span>
             ) : (
               <span className="text-sm text-red-500">
-                Title count: {inputPostTitle.length}/30
+                Title count: {inputPostTitle.length}/50
               </span>
             )}
           </div>
@@ -50,13 +50,13 @@ export default function CreatePost({ addPost }) {
             <label className="block text-sm font-medium text-slate-700 text-right">
               Post Content
             </label>
-            {inputPostContent.length <= 100 ? (
+            {inputPostContent.length <= 200 ? (
               <span className="text-sm text-slate-600">
-                Content count: {inputPostContent.length}/100
+                Content count: {inputPostContent.length}/200
               </span>
             ) : (
               <span className="text-sm text-red-500">
-                Content count: {inputPostContent.length}/100
+                Content count: {inputPostContent.length}/200
               </span>
             )}
           </div>
