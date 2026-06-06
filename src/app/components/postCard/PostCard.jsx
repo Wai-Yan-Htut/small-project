@@ -1,16 +1,17 @@
 import { useState } from "react";
-import { MessageCircle, Share2, PencilLine, Trash2 } from "lucide-react";
+import { MessageCircleMore, Share2, PencilLine, Trash2 } from "lucide-react";
 import EditPost from "../editPost/EditPost";
 import CommentCard from "../commentCard/CommentCard";
 import PostVote from "../postVotes/PostVote";
 
 export default function PostCard({
   post,
-  deletePost,
   editPost,
+  deletePost,
   toggleUpvote,
   toggleDownvote,
   createComment,
+  deleteComment,
 }) {
   const [isEditing, setIsEditing] = useState(false);
   const [isCommenting, setIsCommenting] = useState(false);
@@ -50,7 +51,7 @@ export default function PostCard({
             <div className="mb-3 flex items-start justify-between gap-4">
               <div className="min-w-0">
                 <span className="flex mb-1 text-xs text-slate-500">
-                  r/shrimpapp •{getTimestamp(post.createdAt)}
+                  r/shrimpapp • {getTimestamp(post.createdAt)}
                 </span>
                 <h2 className="truncate text-lg font-semibold tracking-tight text-slate-900">
                   {post.title}
@@ -85,16 +86,16 @@ export default function PostCard({
                 <button
                   type="button"
                   onClick={() => setIsCommenting(true)}
-                  className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:bg-cyan-50 hover:text-cyan-700"
+                  className="inline-flex min-w-15 items-center justify-center gap-2 rounded-full ml-1 px-3 py-1.5 text-sm font-medium leading-none text-slate-600 transition-colors hover:bg-cyan-100 hover:text-cyan-700"
                 >
-                  <MessageCircle className="h-4 w-4" />
-                  Comment
+                  <MessageCircleMore className="h-4 w-4 shrink-0" />
+                  {post.comments.length}
                 </button>
               )}
 
               <button
                 type="button"
-                className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:bg-cyan-50 hover:text-cyan-700"
+                className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:bg-cyan-100 hover:text-cyan-700"
               >
                 <Share2 className="h-4 w-4" />
                 Share
@@ -118,6 +119,8 @@ export default function PostCard({
                 comments={post.comments}
                 createComment={createComment}
                 setIsCommenting={setIsCommenting}
+                getTimestamp={getTimestamp}
+                deleteComment={deleteComment}
               />
             )}
           </div>

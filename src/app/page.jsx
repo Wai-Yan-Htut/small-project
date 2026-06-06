@@ -9,7 +9,6 @@ import PostList from "./components/postList/PostList";
 
 function App() {
   const [posts, setPosts] = useState(mockedPosts);
-
   const [inputSearchTitle, setInputSearchTitle] = useState("");
 
   const filteredPosts = posts.filter((post) =>
@@ -39,6 +38,10 @@ function App() {
         }
       }),
     );
+  }
+
+  function deletePost(postId) {
+    setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
   }
 
   function toggleUpvote(idToUpvote) {
@@ -84,6 +87,7 @@ function App() {
       id: Date.now(),
       username: "user",
       content: inputComment,
+      createdAt: Date.now(),
     };
     setPosts((prevPosts) =>
       prevPosts.map((post) => {
@@ -95,8 +99,21 @@ function App() {
     );
   }
 
-  function deletePost(postId) {
-    setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
+  function deleteComment(postID, idToDelete) {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) => {
+        if (post.id === postID) {
+          return {
+            ...post,
+            comments: post.comments.filter(
+              (comment) => comment.id !== idToDelete,
+            ),
+          };
+        }
+        return post;
+      }),
+    );
+    console.log(posts);
   }
 
   useEffect(() => {
@@ -108,7 +125,6 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem("posts", JSON.stringify(posts));
-    console.log("posts saved");
   }, [posts]);
 
   return (
@@ -122,11 +138,12 @@ function App() {
           <PostList
             posts={posts}
             filteredPosts={filteredPosts}
+            editPost={editPost}
+            deletePost={deletePost}
             toggleUpvote={toggleUpvote}
             toggleDownvote={toggleDownvote}
             createComment={createComment}
-            deletePost={deletePost}
-            editPost={editPost}
+            deleteComment={deleteComment}
           />
           <aside className="sticky space-y-6 self-start lg:sticky lg:top-8">
             <CreatePost addPost={addPost} />

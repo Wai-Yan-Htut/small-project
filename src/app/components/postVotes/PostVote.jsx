@@ -17,7 +17,7 @@ export default function PostVote({ post, toggleUpvote, toggleDownvote }) {
           type="button"
           aria-label="Upvote"
           onClick={() => toggleUpvote(post.id)}
-          className="inline-flex h-6 w-6 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-cyan-50 hover:text-cyan-700"
+          className="inline-flex h-6 w-6 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-cyan-100 hover:text-cyan-700"
         >
           <ArrowBigUp className="h-3.5 w-3.5" />
         </button>
@@ -40,7 +40,7 @@ export default function PostVote({ post, toggleUpvote, toggleDownvote }) {
           type="button"
           aria-label="Downvote"
           onClick={() => toggleDownvote(post.id)}
-          className="inline-flex h-6 w-6 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-cyan-50 hover:text-cyan-700"
+          className="inline-flex h-6 w-6 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-cyan-100 hover:text-cyan-700"
         >
           <ArrowBigDown className="h-3.5 w-3.5" />
         </button>
