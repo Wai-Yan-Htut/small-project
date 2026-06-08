@@ -3,6 +3,7 @@ import { MessageCircleMore, Share2, PencilLine, Trash2 } from "lucide-react";
 import EditPost from "../editPost/EditPost";
 import CommentCard from "../commentCard/CommentCard";
 import PostVote from "../postVotes/PostVote";
+import { getTimestamp } from "../../utils/timestamp/getTimestamp";
 
 export default function PostCard({
   post,
@@ -15,26 +16,6 @@ export default function PostCard({
 }) {
   const [isEditing, setIsEditing] = useState(false);
   const [isCommenting, setIsCommenting] = useState(false);
-
-  function getTimestamp(createdAt) {
-    const seconds = Math.floor((Date.now() - createdAt) / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
-
-    if (seconds < 60) {
-      return seconds === 1 ? `${seconds} second ago` : `${seconds} seconds ago`;
-    }
-    if (minutes < 60) {
-      return minutes === 1 ? `${minutes} minute ago` : `${minutes} minutes ago`;
-    }
-    if (hours < 24) {
-      return hours === 1 ? `${hours} hour ago` : `${hours} hours ago`;
-    }
-    if (days < 365) {
-      return days === 1 ? `${days} day ago` : `${days} days ago`;
-    }
-  }
 
   return (
     <article className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:border-slate-300 hover:shadow-md">
@@ -119,7 +100,6 @@ export default function PostCard({
                 comments={post.comments}
                 createComment={createComment}
                 setIsCommenting={setIsCommenting}
-                getTimestamp={getTimestamp}
                 deleteComment={deleteComment}
               />
             )}

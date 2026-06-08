@@ -10,7 +10,7 @@ export default function EditPost({ post, editPost, setIsEditing }) {
       </h2>
       <div className="space-y-3">
         <label className="block space-y-1">
-          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+          <span className="text-xs font-semibold tracking-[0.12em] text-slate-500 uppercase">
             Title
           </span>
           <input
@@ -18,12 +18,12 @@ export default function EditPost({ post, editPost, setIsEditing }) {
             placeholder="Enter new post title..."
             value={inputEditTitle}
             onChange={(event) => setInputEditTitle(event.target.value)}
-            className="w-full rounded-xl border border-slate-200 px-4 py-2 text-slate-700 transition focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-100"
+            className="w-full rounded-xl border border-slate-200 px-4 py-2 text-slate-700 transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100 focus:outline-none"
           />
         </label>
 
         <label className="block space-y-1">
-          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+          <span className="text-xs font-semibold tracking-[0.12em] text-slate-500 uppercase">
             Content
           </span>
           <input
@@ -31,7 +31,7 @@ export default function EditPost({ post, editPost, setIsEditing }) {
             placeholder="Enter new post content..."
             value={inputEditContent}
             onChange={(event) => setInputEditContent(event.target.value)}
-            className="w-full rounded-xl border border-slate-200 px-4 py-2 text-slate-700 transition focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-100"
+            className="w-full rounded-xl border border-slate-200 px-4 py-2 text-slate-700 transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100 focus:outline-none"
           />
         </label>
 

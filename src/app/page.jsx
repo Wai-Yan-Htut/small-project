@@ -2,16 +2,32 @@
 
 import { useState } from "react";
 import { useEffect } from "react";
-import { mockedPosts } from "./components/mockedPosts/mockedPost";
-import CreatePost from "./components/createPost/CreatePost";
 import NavBar from "./components/navBar/NavBar";
+import SideBar from "./components/sideBar/SideBar";
 import PostList from "./components/postList/PostList";
+import CreatePost from "./components/createPost/CreatePost";
+import { mockedPosts } from "./components/mockedPosts/mockedPost";
 
 function App() {
   const [posts, setPosts] = useState(mockedPosts);
   const [inputSearchTitle, setInputSearchTitle] = useState("");
+  const [filter, setFilter] = useState("All");
 
-  const filteredPosts = posts.filter((post) =>
+  function filterPosts() {
+    if (filter === "All") {
+      return posts;
+    }
+    if (filter === "Popular") {
+      return posts.filter((post) => post.vote > 10);
+    }
+    if (filter === "New") {
+      return posts.filter(
+        (post) => Math.floor((Date.now() - post.createdAt) / 1000) < 86400,
+      );
+    }
+  }
+
+  const filteredPosts = filterPosts().filter((post) =>
     post.title.toLowerCase().includes(inputSearchTitle.toLowerCase()),
   );
 
@@ -133,8 +149,10 @@ function App() {
         inputSearchTitle={inputSearchTitle}
         setInputSearchTitle={setInputSearchTitle}
       />
+      <SideBar setFilter={setFilter} />
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_380px]">
+        <div className="grid gap-8 lg:grid-cols-[auto_minmax(0,1fr)_380px] xl:gap-10">
+          <aside className="sticky top-8 hidden self-start lg:block"></aside>
           <PostList
             posts={posts}
             filteredPosts={filteredPosts}

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { getTimestamp } from "../../utils/timestamp/getTimestamp";
 
 export default function CommentCard({
   postId,
@@ -6,7 +7,6 @@ export default function CommentCard({
   createComment,
   setIsCommenting,
   deleteComment,
-  getTimestamp,
 }) {
   const [inputComment, setInputComment] = useState("");
 
@@ -34,7 +34,7 @@ export default function CommentCard({
 
       <div className="rounded-2xl border border-slate-200 bg-white p-3 shadow-sm">
         <label className="block space-y-2">
-          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+          <span className="text-xs font-semibold tracking-[0.12em] text-slate-500 uppercase">
             Write a comment
           </span>
           <textarea
@@ -42,7 +42,7 @@ export default function CommentCard({
             value={inputComment}
             onChange={(event) => setInputComment(event.target.value)}
             placeholder="Add your thoughts..."
-            className="min-h-24 w-full resize-none rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 placeholder:text-slate-400 transition focus:border-cyan-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-100"
+            className="min-h-24 w-full resize-none rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 transition placeholder:text-slate-400 focus:border-cyan-500 focus:bg-white focus:ring-2 focus:ring-cyan-100 focus:outline-none"
           />
         </label>
         <div className="mt-3 flex justify-end">
@@ -61,7 +61,7 @@ export default function CommentCard({
 
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+          <span className="text-xs font-semibold tracking-[0.12em] text-slate-500 uppercase">
             Thread
           </span>
           {comments.length === 0 ? (
