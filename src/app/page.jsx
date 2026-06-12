@@ -10,8 +10,11 @@ import { mockedPosts } from "./components/mockedPosts/mockedPost";
 
 function App() {
   const [posts, setPosts] = useState(mockedPosts);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [inputSearchTitle, setInputSearchTitle] = useState("");
   const [filter, setFilter] = useState("All");
+
+  console.log("Render", posts.length);
 
   function filterPosts() {
     if (filter === "All") {
@@ -133,15 +136,21 @@ function App() {
   }
 
   useEffect(() => {
+    console.log("Start Loading");
     const savedPosts = localStorage.getItem("posts");
     if (savedPosts) {
-      setPosts(JSON.parse(savedPosts));
+      const parsedPosts = JSON.parse(savedPosts);
+      setPosts(parsedPosts);
     }
+    setIsLoaded(true);
+    console.log("Loaded");
   }, []);
 
   useEffect(() => {
+    if (!isLoaded) return console.log("Not save");
     localStorage.setItem("posts", JSON.stringify(posts));
-  }, [posts]);
+    console.log("Saved");
+  }, [posts, isLoaded]);
 
   return (
     <div className="min-h-screen bg-linear-to-b from-slate-50 via-slate-50 to-slate-100 text-slate-900">
