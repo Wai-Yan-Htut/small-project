@@ -13,33 +13,37 @@ export default function SideBar({ setFilter }) {
           sideBarOpen ? "w-56" : "w-12"
         }`}
       >
-        {sideBarOpen && (
-          <nav className="mt-4 flex flex-col gap-2 px-2">
-            <button
-              onClick={() => setFilter("All")}
-              className="text-foreground focus:ring-primary flex items-center gap-3 rounded-md px-4 py-3 text-base leading-5 font-medium transition-colors hover:bg-cyan-50"
-            >
-              <Home size={18} className="shrink-0" aria-hidden="true" />
-              Home
-            </button>
+        <nav
+          className={`mt-4 flex flex-col gap-2 px-2 transition-all duration-300 ease-in-out ${
+            sideBarOpen
+              ? "pointer-events-auto translate-x-0 opacity-100"
+              : "pointer-events-none -translate-x-2 opacity-0"
+          }`}
+        >
+          <button
+            onClick={() => setFilter("All")}
+            className="text-foreground focus:ring-primary flex items-center gap-3 rounded-md px-4 py-3 text-base leading-5 font-medium transition-colors hover:bg-cyan-50"
+          >
+            <Home size={18} className="shrink-0" aria-hidden="true" />
+            Home
+          </button>
 
-            <button
-              onClick={() => setFilter("Popular")}
-              className="text-foreground/80 focus:ring-primary flex items-center gap-3 rounded-md px-4 py-3 text-base leading-5 font-medium transition-colors hover:bg-cyan-50"
-            >
-              <TrendingUp size={18} className="shrink-0" aria-hidden="true" />
-              Popular
-            </button>
+          <button
+            onClick={() => setFilter("Popular")}
+            className="text-foreground/80 focus:ring-primary flex items-center gap-3 rounded-md px-4 py-3 text-base leading-5 font-medium transition-colors hover:bg-cyan-50"
+          >
+            <TrendingUp size={18} className="shrink-0" aria-hidden="true" />
+            Popular
+          </button>
 
-            <button
-              onClick={() => setFilter("New")}
-              className="text-foreground/80 focus:ring-primary flex items-center gap-3 rounded-md px-4 py-3 text-base leading-5 font-medium transition-colors hover:bg-cyan-50"
-            >
-              <PlusCircle size={18} className="shrink-0" aria-hidden="true" />
-              New
-            </button>
-          </nav>
-        )}
+          <button
+            onClick={() => setFilter("New")}
+            className="text-foreground/80 focus:ring-primary flex items-center gap-3 rounded-md px-4 py-3 text-base leading-5 font-medium transition-colors hover:bg-cyan-50"
+          >
+            <PlusCircle size={18} className="shrink-0" aria-hidden="true" />
+            New
+          </button>
+        </nav>
 
         <button
           type="button"

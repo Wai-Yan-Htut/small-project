@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import NavBar from "./components/navBar/NavBar";
 import SideBar from "./components/sideBar/SideBar";
 import PostList from "./components/postList/PostList";
-import CreatePost from "./components/createPost/CreatePost";
 import { mockedPosts } from "./components/mockedPosts/mockedPost";
 
 function App() {
@@ -33,19 +32,6 @@ function App() {
   const filteredPosts = filterPosts().filter((post) =>
     post.title.toLowerCase().includes(inputSearchTitle.toLowerCase()),
   );
-
-  function addPost(inputPostTitle, inputPostContent) {
-    const newPost = {
-      id: Date.now(),
-      title: inputPostTitle,
-      content: inputPostContent,
-      vote: 0,
-      voteAction: null,
-      comments: [],
-      createdAt: Date.now(),
-    };
-    setPosts((prevPosts) => [...prevPosts, newPost]);
-  }
 
   function editPost(idToEdit, inputEditTitle, inputEditContent) {
     setPosts((prevPosts) =>
@@ -101,40 +87,6 @@ function App() {
     );
   }
 
-  function createComment(inputComment, idToComment) {
-    const newComment = {
-      id: Date.now(),
-      username: "user",
-      content: inputComment,
-      createdAt: Date.now(),
-    };
-    setPosts((prevPosts) =>
-      prevPosts.map((post) => {
-        if (post.id === idToComment) {
-          return { ...post, comments: [...post.comments, newComment] };
-        }
-        return post;
-      }),
-    );
-  }
-
-  function deleteComment(postID, idToDelete) {
-    setPosts((prevPosts) =>
-      prevPosts.map((post) => {
-        if (post.id === postID) {
-          return {
-            ...post,
-            comments: post.comments.filter(
-              (comment) => comment.id !== idToDelete,
-            ),
-          };
-        }
-        return post;
-      }),
-    );
-    console.log(posts);
-  }
-
   useEffect(() => {
     console.log("Start Loading");
     const savedPosts = localStorage.getItem("posts");
@@ -169,12 +121,8 @@ function App() {
             deletePost={deletePost}
             toggleUpvote={toggleUpvote}
             toggleDownvote={toggleDownvote}
-            createComment={createComment}
-            deleteComment={deleteComment}
           />
-          <aside className="sticky space-y-6 self-start lg:sticky lg:top-8">
-            <CreatePost addPost={addPost} />
-          </aside>
+          <aside className="sticky space-y-6 self-start lg:sticky lg:top-8"></aside>
         </div>
       </div>
     </div>

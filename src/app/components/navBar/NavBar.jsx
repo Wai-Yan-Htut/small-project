@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Search, CirclePlus } from "lucide-react";
 import SearchPost from "../searchPost/SearchPost";
 
@@ -40,13 +41,13 @@ export default function NavBar({ inputSearchTitle, setInputSearchTitle }) {
           >
             Log In
           </button>
-          <button
-            type="button"
+          <Link
+            href="/createPost"
             className="inline-flex items-center justify-center gap-1.5 rounded-full bg-cyan-500 px-4 py-2 text-sm leading-none font-semibold text-white shadow-sm shadow-cyan-200 transition-colors hover:bg-cyan-600"
           >
             <CirclePlus className="h-4 w-4 shrink-0 text-white" />
             <span className="leading-none">Create</span>
-          </button>
+          </Link>
           <button
             type="button"
             className="flex h-10 w-10 items-center justify-center rounded-full border border-cyan-100 bg-white text-cyan-700 shadow-sm transition-colors hover:border-cyan-200 hover:bg-cyan-50"

@@ -7,8 +7,6 @@ export default function PostList({
   deletePost,
   toggleUpvote,
   toggleDownvote,
-  createComment,
-  deleteComment,
 }) {
   const hasNoPosts = posts.length === 0;
   const hasNoMatch = filteredPosts.length === 0;
@@ -35,8 +33,6 @@ export default function PostList({
             deletePost={deletePost}
             toggleUpvote={toggleUpvote}
             toggleDownvote={toggleDownvote}
-            createComment={createComment}
-            deleteComment={deleteComment}
           />
         ))
       )}

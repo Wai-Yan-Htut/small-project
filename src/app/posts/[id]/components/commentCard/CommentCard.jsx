@@ -1,37 +1,16 @@
 import { useState } from "react";
-import { getTimestamp } from "../../utils/timestamp/getTimestamp";
+import { getTimestamp } from "@/src/app/utils/timestamp/getTimestamp";
 
 export default function CommentCard({
   postId,
   comments,
   createComment,
-  setIsCommenting,
   deleteComment,
 }) {
   const [inputComment, setInputComment] = useState("");
 
   return (
     <section className="mt-5 space-y-4 rounded-2xl border border-cyan-100 bg-linear-to-b from-cyan-50/80 to-white p-4 shadow-sm">
-      <div className="flex items-center justify-between gap-3">
-        <div>
-          <h3 className="text-sm font-semibold text-slate-900">Comments</h3>
-          <p className="mt-1 text-xs text-slate-500">
-            Leave a note and keep the thread tidy.
-          </p>
-        </div>
-
-        <button
-          type="button"
-          onClick={() => {
-            setIsCommenting(false);
-            setInputComment("");
-          }}
-          className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 transition-colors hover:border-cyan-200 hover:text-cyan-700"
-        >
-          Close
-        </button>
-      </div>
-
       <div className="rounded-2xl border border-slate-200 bg-white p-3 shadow-sm">
         <label className="block space-y-2">
           <span className="text-xs font-semibold tracking-[0.12em] text-slate-500 uppercase">

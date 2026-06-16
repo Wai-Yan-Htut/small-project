@@ -2,7 +2,6 @@ import Link from "next/link";
 import { useState } from "react";
 import EditPost from "../editPost/EditPost";
 import PostVote from "../postVotes/PostVote";
-import CommentCard from "../commentCard/CommentCard";
 import { getTimestamp } from "../../utils/timestamp/getTimestamp";
 import { MessageCircleMore, Share2, PencilLine, Trash2 } from "lucide-react";
 
@@ -12,11 +11,8 @@ export default function PostCard({
   deletePost,
   toggleUpvote,
   toggleDownvote,
-  createComment,
-  deleteComment,
 }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [isCommenting, setIsCommenting] = useState(false);
 
   return (
     <article className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:border-slate-300 hover:shadow-md">
@@ -64,23 +60,14 @@ export default function PostCard({
                 toggleUpvote={toggleUpvote}
                 toggleDownvote={toggleDownvote}
               />
-              {!isCommenting && (
-                // <button
-                //   type="button"
-                //   onClick={() => setIsCommenting(true)}
-                //   className="ml-1 inline-flex min-w-15 items-center justify-center gap-2 rounded-full px-3 py-1.5 text-sm leading-none font-medium text-slate-600 transition-colors hover:bg-cyan-100 hover:text-cyan-700"
-                // >
-                //   <MessageCircleMore className="h-4 w-4 shrink-0" />
-                //   {post.comments.length}
-                // </button>
-                <Link
-                  className="ml-1 inline-flex min-w-15 items-center justify-center gap-2 rounded-full px-3 py-1.5 text-sm leading-none font-medium text-slate-600 transition-colors hover:bg-cyan-100 hover:text-cyan-700"
-                  href={`/posts/${post.id}`}
-                >
-                  <MessageCircleMore className="h-4 w-4 shrink-0" />
-                  {post.comments.length}
-                </Link>
-              )}
+
+              <Link
+                className="ml-1 inline-flex min-w-15 items-center justify-center gap-2 rounded-full px-3 py-1.5 text-sm leading-none font-medium text-slate-600 transition-colors hover:bg-cyan-100 hover:text-cyan-700"
+                href={`/posts/${post.id}`}
+              >
+                <MessageCircleMore className="h-4 w-4 shrink-0" />
+                {post.comments.length}
+              </Link>
 
               <button
                 type="button"
@@ -101,16 +88,6 @@ export default function PostCard({
                 </span>
               </button>
             </div>
-
-            {isCommenting && (
-              <CommentCard
-                postId={post.id}
-                comments={post.comments}
-                createComment={createComment}
-                setIsCommenting={setIsCommenting}
-                deleteComment={deleteComment}
-              />
-            )}
           </div>
         </div>
       )}
