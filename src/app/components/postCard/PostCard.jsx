@@ -5,13 +5,7 @@ import PostVote from "../postVotes/PostVote";
 import { getTimestamp } from "../../utils/timestamp/getTimestamp";
 import { MessageCircleMore, Share2, PencilLine, Trash2 } from "lucide-react";
 
-export default function PostCard({
-  post,
-  editPost,
-  deletePost,
-  toggleUpvote,
-  toggleDownvote,
-}) {
+export default function PostCard({ post, editPost, deletePost }) {
   const [isEditing, setIsEditing] = useState(false);
 
   return (
@@ -55,11 +49,7 @@ export default function PostCard({
             </p>
 
             <div className="flex flex-wrap items-center gap-1.5 pt-2">
-              <PostVote
-                post={post}
-                toggleUpvote={toggleUpvote}
-                toggleDownvote={toggleDownvote}
-              />
+              <PostVote post={post} />
 
               <Link
                 className="ml-1 inline-flex min-w-15 items-center justify-center gap-2 rounded-full px-3 py-1.5 text-sm leading-none font-medium text-slate-600 transition-colors hover:bg-cyan-100 hover:text-cyan-700"

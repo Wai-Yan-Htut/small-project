@@ -1,5 +1,6 @@
 import "./globals.css";
 import NavBar from "./components/navBar/NavBar";
+import PostProvider from "./context/PostContext";
 import SideBar from "./components/sideBar/SideBar";
 import { Geist, Geist_Mono } from "next/font/google";
 
@@ -25,9 +26,11 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <NavBar />
-        <SideBar />
-        {children}
+        <PostProvider>
+          <NavBar />
+          <SideBar />
+          {children}
+        </PostProvider>
       </body>
     </html>
   );

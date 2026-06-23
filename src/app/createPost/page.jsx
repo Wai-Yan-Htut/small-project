@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useContext } from "react";
+import { PostContext } from "../context/PostContext";
 
 export default function PostCreationPage() {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [tempPosts, setTempPosts] = useState(null);
+  const { posts, setPosts } = useContext(PostContext);
   const [inputPostTitle, setInputPostTitle] = useState("");
   const [inputPostContent, setInputPostContent] = useState("");
 
@@ -13,12 +13,6 @@ export default function PostCreationPage() {
 
   const validMaxChar =
     inputPostTitle.length <= 50 && inputPostContent.length <= 200;
-
-  useEffect(() => {
-    const savedPosts = JSON.parse(localStorage.getItem("posts"));
-    setTempPosts(savedPosts);
-    setIsLoaded(true);
-  }, []);
 
   function addPost(inputPostTitle, inputPostContent) {
     const newPost = {
@@ -30,14 +24,8 @@ export default function PostCreationPage() {
       comments: [],
       createdAt: Date.now(),
     };
-    setTempPosts((prevTempPosts) => [...prevTempPosts, newPost]);
+    setPosts((prevPosts) => [...prevPosts, newPost]);
   }
-
-  useEffect(() => {
-    if (!isLoaded) return;
-    localStorage.setItem("posts", JSON.stringify(tempPosts));
-    console.log(JSON.parse(localStorage.getItem("posts")));
-  }, [tempPosts, isLoaded]);
 
   return (
     <div className="min-h-screen bg-linear-to-b from-slate-50 via-slate-50 to-slate-100 text-slate-900">
@@ -45,7 +33,7 @@ export default function PostCreationPage() {
         <div className="grid gap-8 lg:grid-cols-[auto_minmax(0,1fr)_380px] xl:gap-10">
           <aside className="sticky top-8 hidden self-start lg:block"></aside>
           <div>
-            {!tempPosts ? (
+            {!posts ? (
               <h1>Loading...</h1>
             ) : (
               <div className="w-full rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">

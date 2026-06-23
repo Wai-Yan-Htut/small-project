@@ -1,15 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { useEffect } from "react";
+import { useContext } from "react";
+import { PostContext } from "./context/PostContext";
 import PostList from "./components/postList/PostList";
-import { mockedPosts } from "./components/mockedPosts/mockedPost";
 
 function App() {
-  const [posts, setPosts] = useState(mockedPosts);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [inputSearchTitle, setInputSearchTitle] = useState("");
-  const [filter, setFilter] = useState("All");
+  const { posts, setPosts, filter, inputSearchTitle } = useContext(PostContext);
 
   function filterPosts() {
     if (filter === "All") {
@@ -45,58 +41,6 @@ function App() {
     setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
   }
 
-  function toggleUpvote(idToUpvote) {
-    setPosts((prevPosts) =>
-      prevPosts.map((post) => {
-        if (post.id === idToUpvote) {
-          switch (post.voteAction) {
-            case "up":
-              return { ...post, vote: post.vote - 1, voteAction: null };
-            case "down":
-              return { ...post, vote: post.vote + 2, voteAction: "up" };
-            case null:
-              return { ...post, vote: post.vote + 1, voteAction: "up" };
-          }
-        } else {
-          return post;
-        }
-      }),
-    );
-  }
-
-  function toggleDownvote(idToDownvote) {
-    setPosts((prevPosts) =>
-      prevPosts.map((post) => {
-        if (post.id === idToDownvote) {
-          switch (post.voteAction) {
-            case "down":
-              return { ...post, vote: post.vote + 1, voteAction: null };
-            case "up":
-              return { ...post, vote: post.vote - 2, voteAction: "down" };
-            case null:
-              return { ...post, vote: post.vote - 1, voteAction: "down" };
-          }
-        } else {
-          return post;
-        }
-      }),
-    );
-  }
-
-  useEffect(() => {
-    const savedPosts = localStorage.getItem("posts");
-    if (savedPosts) {
-      const parsedPosts = JSON.parse(savedPosts);
-      setPosts(parsedPosts);
-    }
-    setIsLoaded(true);
-  }, []);
-
-  useEffect(() => {
-    if (!isLoaded) return console.log("Not save");
-    localStorage.setItem("posts", JSON.stringify(posts));
-  }, [posts, isLoaded]);
-
   return (
     <div className="min-h-screen bg-linear-to-b from-slate-50 via-slate-50 to-slate-100 text-slate-900">
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -107,8 +51,6 @@ function App() {
             filteredPosts={filteredPosts}
             editPost={editPost}
             deletePost={deletePost}
-            toggleUpvote={toggleUpvote}
-            toggleDownvote={toggleDownvote}
           />
           <aside className="sticky space-y-6 self-start lg:sticky lg:top-8"></aside>
         </div>

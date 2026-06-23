@@ -1,9 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { useContext } from "react";
 import { Search, CirclePlus } from "lucide-react";
+import { PostContext } from "../../context/PostContext";
 
 export default function NavBar() {
+  const { inputSearchTitle, setInputSearchTitle } = useContext(PostContext);
   return (
     <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/90 backdrop-blur-xl">
       <nav className="relative mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-2 sm:px-6 lg:px-8">
@@ -28,6 +31,8 @@ export default function NavBar() {
             <Search className="h-4 w-4 shrink-0 text-cyan-500" />
             <input
               type="text"
+              value={inputSearchTitle}
+              onChange={(e) => setInputSearchTitle(e.target.value)}
               aria-label="Search posts"
               placeholder="Search anything..."
               className="w-full bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-400"

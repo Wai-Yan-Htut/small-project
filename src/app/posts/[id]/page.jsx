@@ -1,16 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
+import { PostContext } from "../../context/PostContext";
+import PostVote from "../../components/postVotes/PostVote";
 import CommentCard from "./components/commentCard/CommentCard";
 import { getTimestamp } from "../../utils/timestamp/getTimestamp";
-import DetailedVote from "./components/detailedPageVote/DetailedVote";
 import { MessageCircleMore, PencilLine, Share2, Trash2 } from "lucide-react";
 
 export default function PostDetailsPage({ params }) {
   const { id } = React.use(params);
-  const [posts, setPosts] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const { posts, setPosts } = useContext(PostContext);
 
   function getPost() {
     if (posts) {
@@ -21,44 +21,6 @@ export default function PostDetailsPage({ params }) {
   }
 
   const targetPost = getPost();
-
-  function toggleUpvote(idToUpvote) {
-    setPosts((prevPosts) =>
-      prevPosts.map((post) => {
-        if (post.id === idToUpvote) {
-          switch (post.voteAction) {
-            case "up":
-              return { ...post, vote: post.vote - 1, voteAction: null };
-            case "down":
-              return { ...post, vote: post.vote + 2, voteAction: "up" };
-            case null:
-              return { ...post, vote: post.vote + 1, voteAction: "up" };
-          }
-        } else {
-          return post;
-        }
-      }),
-    );
-  }
-
-  function toggleDownvote(idToDownvote) {
-    setPosts((prevPosts) =>
-      prevPosts.map((post) => {
-        if (post.id === idToDownvote) {
-          switch (post.voteAction) {
-            case "down":
-              return { ...post, vote: post.vote + 1, voteAction: null };
-            case "up":
-              return { ...post, vote: post.vote - 2, voteAction: "down" };
-            case null:
-              return { ...post, vote: post.vote - 1, voteAction: "down" };
-          }
-        } else {
-          return post;
-        }
-      }),
-    );
-  }
 
   function createComment(inputComment, idToComment) {
     const newComment = {
@@ -93,17 +55,6 @@ export default function PostDetailsPage({ params }) {
     );
     console.log(posts);
   }
-
-  useEffect(() => {
-    const savedPosts = JSON.parse(localStorage.getItem("posts"));
-    setPosts(savedPosts);
-    setIsLoaded(true);
-  }, [id]);
-
-  useEffect(() => {
-    if (!isLoaded) return;
-    localStorage.setItem("posts", JSON.stringify(posts));
-  }, [posts, isLoaded]);
 
   return (
     <div className="min-h-screen bg-linear-to-b from-slate-50 via-slate-50 to-slate-100 text-slate-900">
@@ -146,11 +97,7 @@ export default function PostDetailsPage({ params }) {
                   </p>
 
                   <div className="flex flex-wrap items-center gap-1.5 pt-2">
-                    <DetailedVote
-                      post={targetPost}
-                      toggleUpvote={toggleUpvote}
-                      toggleDownvote={toggleDownvote}
-                    />
+                    <PostVote post={targetPost} />
                     <Link
                       className="ml-1 inline-flex min-w-15 items-center justify-center gap-2 rounded-full px-3 py-1.5 text-sm leading-none font-medium text-slate-600 transition-colors hover:bg-cyan-100 hover:text-cyan-700"
                       href={`/posts/${targetPost.id}`}

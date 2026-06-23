@@ -1,10 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import Link from "next/link";
+import { useContext, useState } from "react";
+import { PostContext } from "../../context/PostContext";
 import { Menu, Home, TrendingUp, PlusCircle } from "lucide-react";
 
-export default function SideBar({ setFilter }) {
+export default function SideBar() {
   const [sideBarOpen, setSidebarOpen] = useState(false);
+  const { setFilter } = useContext(PostContext);
 
   return (
     <div>
@@ -20,29 +23,32 @@ export default function SideBar({ setFilter }) {
               : "pointer-events-none -translate-x-2 opacity-0"
           }`}
         >
-          <button
+          <Link
+            href={`/`}
             onClick={() => setFilter("All")}
             className="text-foreground focus:ring-primary flex items-center gap-3 rounded-md px-4 py-3 text-base leading-5 font-medium transition-colors hover:bg-cyan-50"
           >
             <Home size={18} className="shrink-0" aria-hidden="true" />
             Home
-          </button>
+          </Link>
 
-          <button
+          <Link
+            href={`/`}
             onClick={() => setFilter("Popular")}
             className="text-foreground/80 focus:ring-primary flex items-center gap-3 rounded-md px-4 py-3 text-base leading-5 font-medium transition-colors hover:bg-cyan-50"
           >
             <TrendingUp size={18} className="shrink-0" aria-hidden="true" />
             Popular
-          </button>
+          </Link>
 
-          <button
+          <Link
+            href={`/`}
             onClick={() => setFilter("New")}
             className="text-foreground/80 focus:ring-primary flex items-center gap-3 rounded-md px-4 py-3 text-base leading-5 font-medium transition-colors hover:bg-cyan-50"
           >
             <PlusCircle size={18} className="shrink-0" aria-hidden="true" />
             New
-          </button>
+          </Link>
         </nav>
 
         <button
