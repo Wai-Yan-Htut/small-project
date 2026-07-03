@@ -10,7 +10,6 @@ export default function PostProvider({ children }) {
   const [filter, setFilter] = useState("All");
   const [isLoaded, setIsLoaded] = useState(false);
   const [inputSearchTitle, setInputSearchTitle] = useState("");
-  const [isEditing, setIsEditing] = useState(false);
 
   function filterPosts() {
     if (filter === "All") {
@@ -104,10 +103,8 @@ export default function PostProvider({ children }) {
         filter,
         editPost,
         setPosts,
-        isEditing,
         setFilter,
         deletePost,
-        setIsEditing,
         toggleUpvote,
         filteredPosts,
         toggleDownvote,

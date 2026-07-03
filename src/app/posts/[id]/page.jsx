@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { PostContext } from "../../context/PostContext";
-import EditPost from "../../components/editPost/EditPost";
+import EditPost from "./components/editPost/EditPost";
 import PostVote from "../../components/postVotes/PostVote";
 import CommentCard from "./components/commentCard/CommentCard";
 import { getTimestamp } from "../../utils/timestamp/getTimestamp";
@@ -16,8 +16,8 @@ import {
 
 export default function PostDetailsPage({ params }) {
   const { id } = React.use(params);
-  const { posts, setPosts, deletePost, isEditing, setIsEditing, editPost } =
-    useContext(PostContext);
+  const [isEditing, setIsEditing] = useState(false);
+  const { posts, setPosts, deletePost, editPost } = useContext(PostContext);
 
   function getPost() {
     if (posts) {
@@ -148,6 +148,7 @@ export default function PostDetailsPage({ params }) {
               </div>
             )}
           </article>
+
           <aside className="sticky space-y-6 self-start lg:sticky lg:top-8"></aside>
         </div>
       </div>

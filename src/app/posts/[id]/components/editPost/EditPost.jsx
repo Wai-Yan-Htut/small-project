@@ -1,10 +1,9 @@
-import { useContext, useState } from "react";
-import { PostContext } from "../../context/PostContext";
+import { useState } from "react";
 
-export default function EditPost({ post }) {
+export default function EditPost({ post, setIsEditing, editPost }) {
   const [inputEditTitle, setInputEditTitle] = useState(post.title);
   const [inputEditContent, setInputEditContent] = useState(post.content);
-  const { editPost, setIsEditing } = useContext(PostContext);
+
   return (
     <div className="flex flex-col gap-4 p-5">
       <h2 className="text-lg font-semibold tracking-tight text-slate-900">

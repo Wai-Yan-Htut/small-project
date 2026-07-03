@@ -11,7 +11,7 @@ export default function NavBar() {
     <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/90 backdrop-blur-xl">
       <nav className="relative mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-2 sm:px-6 lg:px-8">
         <a
-          href="#"
+          href="/"
           className="flex shrink-0 items-center gap-3 rounded-full px-1.5 py-1"
         >
           <span className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-cyan-100 bg-white shadow-sm ring-4 shadow-cyan-100 ring-cyan-50">
