@@ -3,45 +3,7 @@ import { ArrowBigDown, ArrowBigUp } from "lucide-react";
 import { PostContext } from "../../context/PostContext";
 
 export default function PostVote({ post }) {
-  const { setPosts } = useContext(PostContext);
-
-  function toggleUpvote(idToUpvote) {
-    setPosts((prevPosts) =>
-      prevPosts.map((post) => {
-        if (post.id === idToUpvote) {
-          switch (post.voteAction) {
-            case "up":
-              return { ...post, vote: post.vote - 1, voteAction: null };
-            case "down":
-              return { ...post, vote: post.vote + 2, voteAction: "up" };
-            case null:
-              return { ...post, vote: post.vote + 1, voteAction: "up" };
-          }
-        } else {
-          return post;
-        }
-      }),
-    );
-  }
-
-  function toggleDownvote(idToDownvote) {
-    setPosts((prevPosts) =>
-      prevPosts.map((post) => {
-        if (post.id === idToDownvote) {
-          switch (post.voteAction) {
-            case "down":
-              return { ...post, vote: post.vote + 1, voteAction: null };
-            case "up":
-              return { ...post, vote: post.vote - 2, voteAction: "down" };
-            case null:
-              return { ...post, vote: post.vote - 1, voteAction: "down" };
-          }
-        } else {
-          return post;
-        }
-      }),
-    );
-  }
+  const { toggleUpvote, toggleDownvote } = useContext(PostContext);
 
   return (
     <div className="inline-flex items-center rounded-full bg-slate-50 px-2.5 py-1.5 shadow-sm ring-1 ring-slate-200 transition-colors hover:bg-white hover:ring-cyan-200">

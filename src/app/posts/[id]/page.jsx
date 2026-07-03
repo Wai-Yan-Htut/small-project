@@ -3,14 +3,21 @@
 import Link from "next/link";
 import React, { useContext } from "react";
 import { PostContext } from "../../context/PostContext";
+import EditPost from "../../components/editPost/EditPost";
 import PostVote from "../../components/postVotes/PostVote";
 import CommentCard from "./components/commentCard/CommentCard";
 import { getTimestamp } from "../../utils/timestamp/getTimestamp";
-import { MessageCircleMore, PencilLine, Share2, Trash2 } from "lucide-react";
+import {
+  MessageCircleMore,
+  EllipsisVertical,
+  Share2,
+  Trash2,
+} from "lucide-react";
 
 export default function PostDetailsPage({ params }) {
   const { id } = React.use(params);
-  const { posts, setPosts } = useContext(PostContext);
+  const { posts, setPosts, deletePost, isEditing, setIsEditing, editPost } =
+    useContext(PostContext);
 
   function getPost() {
     if (posts) {
@@ -65,6 +72,13 @@ export default function PostDetailsPage({ params }) {
           <article className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:border-slate-300 hover:shadow-md">
             {!posts ? (
               <h1>Loading...</h1>
+            ) : isEditing ? (
+              <EditPost
+                post={targetPost}
+                editPost={editPost}
+                isEditing={isEditing}
+                setIsEditing={setIsEditing}
+              />
             ) : (
               <div className="flex flex-col">
                 <div className="min-w-0 flex-1 p-5">
@@ -85,8 +99,7 @@ export default function PostDetailsPage({ params }) {
                         className="rounded-full border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:border-cyan-200 hover:bg-cyan-50 hover:text-cyan-700"
                       >
                         <span className="inline-flex items-center gap-1.5">
-                          <PencilLine className="h-3.5 w-3.5" />
-                          Edit
+                          <EllipsisVertical className="h-3.5 w-3.5" />
                         </span>
                       </button>
                     </div>

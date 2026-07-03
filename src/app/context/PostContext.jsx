@@ -10,6 +10,79 @@ export default function PostProvider({ children }) {
   const [filter, setFilter] = useState("All");
   const [isLoaded, setIsLoaded] = useState(false);
   const [inputSearchTitle, setInputSearchTitle] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+
+  function filterPosts() {
+    if (filter === "All") {
+      return posts;
+    }
+    if (filter === "Popular") {
+      return posts.filter((post) => post.vote > 10);
+    }
+    if (filter === "New") {
+      return posts.filter(
+        (post) => Math.floor((Date.now() - post.createdAt) / 1000) < 86400,
+      );
+    }
+  }
+
+  const filteredPosts = filterPosts().filter((post) =>
+    post.title.toLowerCase().includes(inputSearchTitle.toLowerCase()),
+  );
+
+  function toggleUpvote(idToUpvote) {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) => {
+        if (post.id === idToUpvote) {
+          switch (post.voteAction) {
+            case "up":
+              return { ...post, vote: post.vote - 1, voteAction: null };
+            case "down":
+              return { ...post, vote: post.vote + 2, voteAction: "up" };
+            case null:
+              return { ...post, vote: post.vote + 1, voteAction: "up" };
+          }
+        } else {
+          return post;
+        }
+      }),
+    );
+  }
+
+  function toggleDownvote(idToDownvote) {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) => {
+        if (post.id === idToDownvote) {
+          switch (post.voteAction) {
+            case "down":
+              return { ...post, vote: post.vote + 1, voteAction: null };
+            case "up":
+              return { ...post, vote: post.vote - 2, voteAction: "down" };
+            case null:
+              return { ...post, vote: post.vote - 1, voteAction: "down" };
+          }
+        } else {
+          return post;
+        }
+      }),
+    );
+  }
+
+  function editPost(idToEdit, inputEditTitle, inputEditContent) {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) => {
+        if (post.id === idToEdit) {
+          return { ...post, title: inputEditTitle, content: inputEditContent };
+        } else {
+          return post;
+        }
+      }),
+    );
+  }
+
+  function deletePost(postId) {
+    setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
+  }
 
   useEffect(() => {
     const savedPosts = JSON.parse(localStorage.getItem("posts"));
@@ -28,9 +101,16 @@ export default function PostProvider({ children }) {
     <PostContext.Provider
       value={{
         posts,
-        setPosts,
         filter,
+        editPost,
+        setPosts,
+        isEditing,
         setFilter,
+        deletePost,
+        setIsEditing,
+        toggleUpvote,
+        filteredPosts,
+        toggleDownvote,
         inputSearchTitle,
         setInputSearchTitle,
       }}

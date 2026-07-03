@@ -1,22 +1,22 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useContext } from "react";
 import EditPost from "../editPost/EditPost";
 import PostVote from "../postVotes/PostVote";
+import { PostContext } from "../../context/PostContext";
 import { getTimestamp } from "../../utils/timestamp/getTimestamp";
-import { MessageCircleMore, Share2, PencilLine, Trash2 } from "lucide-react";
+import {
+  MessageCircleMore,
+  Share2,
+  EllipsisVertical,
+  Trash2,
+} from "lucide-react";
 
 export default function PostCard({ post, editPost, deletePost }) {
-  const [isEditing, setIsEditing] = useState(false);
-
+  const { isEditing, setIsEditing } = useContext(PostContext);
   return (
     <article className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:border-slate-300 hover:shadow-md">
       {isEditing ? (
-        <EditPost
-          post={post}
-          editPost={editPost}
-          isEditing={isEditing}
-          setIsEditing={setIsEditing}
-        />
+        <EditPost post={post} editPost={editPost} />
       ) : (
         <div className="flex">
           <div className="min-w-0 flex-1 p-5">
@@ -37,8 +37,7 @@ export default function PostCard({ post, editPost, deletePost }) {
                   className="rounded-full border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:border-cyan-200 hover:bg-cyan-50 hover:text-cyan-700"
                 >
                   <span className="inline-flex items-center gap-1.5">
-                    <PencilLine className="h-3.5 w-3.5" />
-                    Edit
+                    <EllipsisVertical className="h-3.5 w-3.5" />
                   </span>
                 </button>
               </div>

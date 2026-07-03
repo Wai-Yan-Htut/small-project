@@ -5,41 +5,8 @@ import { PostContext } from "./context/PostContext";
 import PostList from "./components/postList/PostList";
 
 function App() {
-  const { posts, setPosts, filter, inputSearchTitle } = useContext(PostContext);
-
-  function filterPosts() {
-    if (filter === "All") {
-      return posts;
-    }
-    if (filter === "Popular") {
-      return posts.filter((post) => post.vote > 10);
-    }
-    if (filter === "New") {
-      return posts.filter(
-        (post) => Math.floor((Date.now() - post.createdAt) / 1000) < 86400,
-      );
-    }
-  }
-
-  const filteredPosts = filterPosts().filter((post) =>
-    post.title.toLowerCase().includes(inputSearchTitle.toLowerCase()),
-  );
-
-  function editPost(idToEdit, inputEditTitle, inputEditContent) {
-    setPosts((prevPosts) =>
-      prevPosts.map((post) => {
-        if (post.id === idToEdit) {
-          return { ...post, title: inputEditTitle, content: inputEditContent };
-        } else {
-          return post;
-        }
-      }),
-    );
-  }
-
-  function deletePost(postId) {
-    setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
-  }
+  const { posts, filteredPosts, deletePost, editPost } =
+    useContext(PostContext);
 
   return (
     <div className="min-h-screen bg-linear-to-b from-slate-50 via-slate-50 to-slate-100 text-slate-900">
