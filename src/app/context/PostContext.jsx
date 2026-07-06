@@ -25,7 +25,9 @@ export default function PostProvider({ children }) {
     }
   }
 
-  const filteredPosts = filterPosts().filter((post) =>
+  const filteredPosts = filterPosts();
+
+  const searchResults = posts.filter((post) =>
     post.title.toLowerCase().includes(inputSearchTitle.toLowerCase()),
   );
 
@@ -106,6 +108,7 @@ export default function PostProvider({ children }) {
         setFilter,
         deletePost,
         toggleUpvote,
+        searchResults,
         filteredPosts,
         toggleDownvote,
         inputSearchTitle,
