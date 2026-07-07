@@ -8,13 +8,11 @@ export const PostContext = createContext();
 export default function PostProvider({ children }) {
   const [posts, setPosts] = useState(mockedPosts);
   const [filter, setFilter] = useState("All");
+  const [sortOption, setSortOption] = useState("Default");
   const [isLoaded, setIsLoaded] = useState(false);
   const [inputSearchTitle, setInputSearchTitle] = useState("");
 
   function filterPosts() {
-    if (filter === "All") {
-      return posts;
-    }
     if (filter === "Popular") {
       return posts.filter((post) => post.vote > 10);
     }
@@ -23,6 +21,7 @@ export default function PostProvider({ children }) {
         (post) => Math.floor((Date.now() - post.createdAt) / 1000) < 86400,
       );
     }
+    return posts;
   }
 
   const filteredPosts = filterPosts();
@@ -106,9 +105,11 @@ export default function PostProvider({ children }) {
         editPost,
         setPosts,
         setFilter,
+        sortOption,
         deletePost,
         toggleUpvote,
         searchResults,
+        setSortOption,
         filteredPosts,
         toggleDownvote,
         inputSearchTitle,

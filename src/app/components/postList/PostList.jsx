@@ -1,4 +1,7 @@
+import { useContext } from "react";
 import PostCard from "../postCard/PostCard";
+import { PostContext } from "../../context/PostContext";
+import { sortPost } from "../../utils/sortPost/sortPost";
 
 export default function PostList({
   posts,
@@ -8,6 +11,8 @@ export default function PostList({
 }) {
   const hasNoPosts = posts.length === 0;
   const hasNoMatch = filteredPosts.length === 0;
+  const { sortOption } = useContext(PostContext);
+  const sortedPosts = sortPost(filteredPosts, sortOption);
 
   return (
     <main className="space-y-4">
@@ -22,6 +27,15 @@ export default function PostList({
             No Matching Post Found
           </h2>
         </div>
+      ) : sortedPosts ? (
+        sortedPosts.map((post) => (
+          <PostCard
+            key={post.id}
+            post={post}
+            editPost={editPost}
+            deletePost={deletePost}
+          />
+        ))
       ) : (
         filteredPosts.map((post) => (
           <PostCard
