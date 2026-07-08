@@ -3,7 +3,6 @@ import NavBar from "./components/navBar/NavBar";
 import PostProvider from "./context/PostContext";
 import SideBar from "./components/sideBar/SideBar";
 import { Geist, Geist_Mono } from "next/font/google";
-import SortDropDown from "./components/sortDropDown/SortDropDown";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +29,6 @@ export default function RootLayout({ children }) {
         <PostProvider>
           <NavBar />
           <SideBar />
-          <SortDropDown />
           {children}
         </PostProvider>
       </body>

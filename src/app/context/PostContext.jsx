@@ -11,6 +11,7 @@ export default function PostProvider({ children }) {
   const [sortOption, setSortOption] = useState("Default");
   const [isLoaded, setIsLoaded] = useState(false);
   const [inputSearchTitle, setInputSearchTitle] = useState("");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   function filterPosts() {
     if (filter === "Popular") {
@@ -106,12 +107,14 @@ export default function PostProvider({ children }) {
         setPosts,
         setFilter,
         sortOption,
+        sidebarOpen,
         deletePost,
         toggleUpvote,
         searchResults,
         setSortOption,
         filteredPosts,
         toggleDownvote,
+        setSidebarOpen,
         inputSearchTitle,
         setInputSearchTitle,
       }}
