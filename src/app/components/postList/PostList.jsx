@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import PostCard from "../postCard/PostCard";
-import { PostContext } from "../../context/PostContext";
+import { UIContext } from "../../context/UIContext";
 import { sortPost } from "../../utils/sortPost/sortPost";
 import SortDropDown from "../sortDropDown/SortDropDown";
 
@@ -12,7 +12,7 @@ export default function PostList({
 }) {
   const hasNoPosts = posts.length === 0;
   const hasNoMatch = filteredPosts.length === 0;
-  const { sortOption } = useContext(PostContext);
+  const { sortOption } = useContext(UIContext);
   const sortedPosts = sortPost(filteredPosts, sortOption);
 
   return (

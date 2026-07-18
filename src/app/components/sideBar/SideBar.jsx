@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { useContext } from "react";
-import { PostContext } from "../../context/PostContext";
+import { UIContext } from "../../context/UIContext";
 import { Menu, Home, TrendingUp, PlusCircle } from "lucide-react";
 
 export default function SideBar() {
-  const { setFilter, sidebarOpen, setSidebarOpen } = useContext(PostContext);
+  const { setFilter, sidebarOpen, setSidebarOpen } = useContext(UIContext);
 
   return (
     <div>

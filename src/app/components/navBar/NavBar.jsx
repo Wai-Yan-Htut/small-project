@@ -4,10 +4,10 @@ import Link from "next/link";
 import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Search, CirclePlus } from "lucide-react";
-import { PostContext } from "../../context/PostContext";
+import { UIContext } from "../../context/UIContext";
 
 export default function NavBar() {
-  const { setInputSearchTitle } = useContext(PostContext);
+  const { setInputSearchTitle } = useContext(UIContext);
   const [tempSearchInput, setTempSearchInput] = useState("");
   const router = useRouter();
 

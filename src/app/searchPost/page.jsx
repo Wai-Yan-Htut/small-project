@@ -3,10 +3,11 @@
 import { useContext } from "react";
 import { PostContext } from "../context/PostContext";
 import PostList from "../components/postList/PostList";
+import { UIContext } from "../context/UIContext";
 
 function App() {
-  const { posts, searchResults, sidebarOpen } = useContext(PostContext);
-
+  const { posts } = useContext(PostContext);
+  const { searchResults, sidebarOpen } = useContext(UIContext);
   return (
     <div className="min-h-screen bg-linear-to-b from-slate-50 via-slate-50 to-slate-100 text-slate-900">
       <div

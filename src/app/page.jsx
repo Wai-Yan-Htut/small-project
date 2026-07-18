@@ -1,12 +1,13 @@
 "use client";
 
 import { useContext } from "react";
+import { UIContext } from "./context/UIContext";
 import { PostContext } from "./context/PostContext";
 import PostList from "./components/postList/PostList";
 
 function App() {
-  const { posts, filteredPosts, deletePost, editPost, sidebarOpen } =
-    useContext(PostContext);
+  const { posts, deletePost, editPost } = useContext(PostContext);
+  const { filteredPosts, sidebarOpen } = useContext(UIContext);
 
   return (
     <div className="min-h-screen bg-linear-to-b from-slate-50 via-slate-50 to-slate-100 text-slate-900">

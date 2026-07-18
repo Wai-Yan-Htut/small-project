@@ -7,29 +7,7 @@ export const PostContext = createContext();
 
 export default function PostProvider({ children }) {
   const [posts, setPosts] = useState(mockedPosts);
-  const [filter, setFilter] = useState("All");
-  const [sortOption, setSortOption] = useState("Default");
   const [isLoaded, setIsLoaded] = useState(false);
-  const [inputSearchTitle, setInputSearchTitle] = useState("");
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  function filterPosts() {
-    if (filter === "Popular") {
-      return posts.filter((post) => post.vote > 10);
-    }
-    if (filter === "New") {
-      return posts.filter(
-        (post) => Math.floor((Date.now() - post.createdAt) / 1000) < 86400,
-      );
-    }
-    return posts;
-  }
-
-  const filteredPosts = filterPosts();
-
-  const searchResults = posts.filter((post) =>
-    post.title.toLowerCase().includes(inputSearchTitle.toLowerCase()),
-  );
 
   function toggleUpvote(idToUpvote) {
     setPosts((prevPosts) =>
@@ -102,21 +80,11 @@ export default function PostProvider({ children }) {
     <PostContext.Provider
       value={{
         posts,
-        filter,
         editPost,
         setPosts,
-        setFilter,
-        sortOption,
-        sidebarOpen,
         deletePost,
         toggleUpvote,
-        searchResults,
-        setSortOption,
-        filteredPosts,
         toggleDownvote,
-        setSidebarOpen,
-        inputSearchTitle,
-        setInputSearchTitle,
       }}
     >
       {children}
