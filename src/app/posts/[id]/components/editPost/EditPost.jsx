@@ -39,7 +39,7 @@ export default function EditPost({ post, setIsEditing, editPost }) {
         <div className="mt-2 flex flex-wrap gap-2">
           <button
             onClick={() => {
-              editPost(post.id, inputEditTitle, inputEditContent);
+              (post.id, inputEditTitle, inputEditContent);
               setIsEditing(false);
             }}
             className="rounded-full bg-cyan-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-cyan-600"

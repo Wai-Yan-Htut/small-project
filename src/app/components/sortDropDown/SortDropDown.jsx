@@ -1,10 +1,10 @@
 "use client";
 
 import { useContext } from "react";
-import { PostContext } from "../../context/PostContext";
+import { UIContext } from "../../context/UIContext";
 
 export default function SortDropDown() {
-  const { sortOption, setSortOption } = useContext(PostContext);
+  const { sortOption, setSortOption } = useContext(UIContext);
 
   const options = [
     { label: "Default", value: "Default" },
